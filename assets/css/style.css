@@ -1,16 +1,41 @@
 body{
-    background-color:red;
-    margin: 0 auto;
+    background-image: url("../images/StrangerThingsBackground.png");
+    background-size: cover;
+    background-attachment: fixed;
+    margin:0 auto;
 }
 
 .header{
-    background-color:white;
+  
+text-align: center;
+    font-family: 'Bigshot One';
+    font:bolder;
+    font-size: 25px;
+    text-shadow: -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red, 1px 1px 0 red;
+}
+.container{
+    margin: 0 auto;
+    width:85%;
+    height:600px;
+    text-align: center;
+    
+    background: rgba(180, 178, 178, 0.5);
+    font-family: 'Bigshot One';
+    font:bolder;
+    font-size: 25px;
+    text-shadow: -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red, 1px 1px 0 red;
+  }
+
+button{
+    margin: 5px;
+}
+#questions{
+   
     text-align: center;
 }
+
 #triviaGame{
-    background-color:white;
-    
-    text-align: center;
+text-align: center;
 }
 
 
@@ -21,4 +46,6 @@ body{
 
 .userChoice{
     cursor: pointer;
+    text-align: center;
+  
 }

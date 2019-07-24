@@ -2,6 +2,8 @@ $(document).ready(function(){
     var startTime=6;
     var correctCount=0;
     var wrongCount=0;
+    var questArray;
+    
     
     
     
@@ -20,15 +22,15 @@ $(document).ready(function(){
         let triviaQuest = [
            { Question: "Where Can You Watch 'Stranger Things'?", 
             Choice: ["Amazon Prime", "Netflix", "Hulu", "YouTube",],
-            answer: "Netflix"
+            answer: "1"
            },
                 { Question: "Who does Millie Bobby Brown play as?", 
                     Choice: ["Joyce", "Nancy", "Eleven", "Max",],
-                    answer: "Eleven"
+                    answer: "2"
                 }, 
                     { Question: "What game does Mike, Dustin, Lucas, and Will play?", 
                         Choice: ["Atari", "Dungeon&Dragons", "Donkey Kong", "Pac-Man",],
-                        answer: "Dungeon&Dragons"
+                        answer: "1"
         },
         ]
         console.log(triviaQuest[2])
@@ -40,7 +42,7 @@ function Questions(){
     console.log("index " + index)
 
 //'VAR questARRY' WILL TAKE IN THE OBJECTS IN THE ARRAY
-    var questArray = triviaQuest[index];
+    questArray = triviaQuest[index];
     console.log(questArray)
     
 // DISPLAY THE RANDOMIZED QUESTION ON SCREEN
@@ -48,35 +50,43 @@ function Questions(){
 // FOR LOOP TO SHOW THE DIFFERENT OPTIONS USER CAN PICK FROM
     for(let i=0; i<questArray.Choice.length; i++)
     {
-        var choices = $("<div>");
+        var choices = $("<button>");
         choices.attr('class', "userChoice");
         choices.html(questArray.Choice[i])
         choices.attr("data-pick", i);
         $("#choices").append(choices);
         console.log("choices " + i )
-         console.log(questArray.Choice[i])
+        console.log(questArray.Choice[i])
         
     }
 
 }
 
 //ONCLICK FUNCTION WHERE USER CAN CLICK ON THE ANSWER
-$(".userChoice").on("click", function(){
-    console.log("INSIDE CLICK")
-    var guess= "";
-    guess +=  parseInt($(this).attr("data-pick"));
+$(document).on("click", '.userChoice', function(){
 
-    // IF STATEMENT TO DETERMINE IF THE ANSWER IS RIGHT OR WRONG
-    if( guess === questArray.answer) 
-    {
+    console.log("INSIDE CLICK")
+     var guess= "";
+     guess +=  parseInt($(this).attr("data-pick"));
+     
+     console.log("-----------------")
+    console.log(guess)
+    console.log(questArray.answer)
+  
+    console.log("-----------------")
+
+    // // IF STATEMENT TO DETERMINE IF THE ANSWER IS RIGHT OR WRONG
+     if ( guess === questArray.answer) {
         correctCount++;
-        $("#choices").html("<p>Correct</p>")
+        $("#choices").html("<p>Correct!</p>")
+        console.log(guess)
     }
-    else
+    else 
     {
+        wrongCount++;
         $("#choices").html("Wrong")
     }
-    console.log(correctCount)
+
     
 
 });
