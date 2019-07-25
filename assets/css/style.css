@@ -1,5 +1,5 @@
 body{
-    background-image: url("../images/StrangerThingsBackground.png");
+    background-image: url("../images/stranger_things\ wallpaper.jpg");
     background-size: cover;
     background-attachment: fixed;
     margin:0 auto;
@@ -8,6 +8,7 @@ body{
 .header{
   
 text-align: center;
+background: rgba(180, 178, 178, 0.5);
     font-family: 'Bigshot One';
     font:bolder;
     font-size: 25px;
@@ -20,6 +21,9 @@ text-align: center;
     text-align: center;
     
     background: rgba(180, 178, 178, 0.5);
+    border: #EE6262;
+    border-style: solid;
+    
     font-family: 'Bigshot One';
     font:bolder;
     font-size: 25px;
@@ -28,6 +32,14 @@ text-align: center;
 
 button{
     margin: 5px;
+    font-size: 20px;
+    background: linear-gradient(top,  #EE6262,  #73F6FF);
+  background: -ms-linear-gradient(top,  #EE6262,  #73F6FF);
+  background: -webkit-gradient(linear, left top, left bottom, from(#EE6262), to(#73F6FF));
+  background: -moz-linear-gradient(top,  #EE6262,  #73F6FF);
+
+    text-shadow: -1px -1px 0 red, 1px -1px 0 red, -1px 1px 0 red, 1px 1px 0 red;
+
 }
 #questions{
    
@@ -37,7 +49,10 @@ button{
 #triviaGame{
 text-align: center;
 }
-
+#music{
+    width:5px;
+    height:5px;
+}
 
 #choices{
     

@@ -1,24 +1,41 @@
 $(document).ready(function(){
-    var startTime=6;
+    var startTime=30;
     var correctCount=0;
     var wrongCount=0;
     var unanswered=0;
-    // var overall = triviaQuest.length;
     var questArray;
+    var timerCountdwn;
     
     
     
     
     //Setting Timer to 30 seconds   
     function timer(){
-        startTime--;
-        $("#Timer").html("Time Remaining: " + startTime + " Seconds")
-        if (startTime<1)
-        {
-            clearInterval(timerCountdwn);
-        }    
+        timerCountdwn = setInterval(CountDown,1000)  
+        
+
     }
-        var timerCountdwn = setInterval(timer,1000)  
+    function CountDown(){
+        $("#Timer").html("Time Remaining: " + startTime + " seconds")
+        startTime--;
+
+        if(startTime === -1)
+        {
+            stopTime();
+            unanswered++;
+            $("#choices").html("Time's Up!!")
+            console.log("Unanswered: " + unanswered)
+        }
+    }
+
+        //STOP TIME
+    function stopTime(){
+        timerStop=false;
+        clearInterval(timerCountdwn)
+    }
+      //-------------------------------------------------
+
+       
 
        //ARRAY OF QUESTIONS/CHOICES/ANSWERS
         let triviaQuest = [
@@ -58,13 +75,29 @@ $(document).ready(function(){
              Choice: ["Chips Ahoy", "Ahoy Ahoy", "Scoops Ahoy", "Ice Cream CONEection"],
              answer: "2"
             },
-            {Question: "What is the name of the song that Suzie asks Dusitn to sing?", 
+            {Question: "What is the name of the song that Suzie asks Dustin to sing?", 
              Choice: ["Total Eclipse of the Heart", "Every Breath You Take", "Girls Just Want To Have Fun", "The Neverending Story"],
              answer: "3"
             },
         ]
-   
+   //------------------------------------------------------------------------------------------------------------------------------------------
 
+        //HIDE "PLAY AGAIN?" BUTTON
+        $("#playAgain").hide();
+        $("#Timer").hide();
+        
+
+        //WHEN START BUTTON IS CLICK PAGE LOADS
+        $("#begin").on("click", function(){
+            $("#begin").hide();
+            Questions();
+            $("#Timer").show();
+            timer();
+           
+
+
+        })
+        
 //HAVE 'VAR INDEX' AS A RANDOM NUMBER
 //SO THE QUESTIONS WILL BE RANDOMIZED WHEN DISPLAYED ON THE SCREEN
 function Questions(){
@@ -95,8 +128,8 @@ function Questions(){
 }
 
 
-//ONCLICK FUNCTION WHERE USER CAN CLICK ON THE ANSWER
-$(document).on("click", '.userChoice', function(){
+    //ONCLICK FUNCTION WHERE USER CAN CLICK ON THE ANSWER
+    $(document).on("click", '.userChoice', function(){
 
     console.log("INSIDE CLICK")
      var guess= "";
@@ -115,15 +148,35 @@ $(document).on("click", '.userChoice', function(){
         console.log(guess)
         guess="";
         Questions();
+        stopTime();
+
+        console.log("----------------")
+        console.log("correct: " + correctCount)
+        console.log("wrong: " +  wrongCount)
+       
+
     }
     else 
     {
         wrongCount++;
-        $("#choices").html("Wrong")
+        $("#choices").html("Wrong!")
+        guess="";
         Questions();
+        stopTime();
+
+        console.log("----------------")
+        console.log("correct: " + correctCount)
+        console.log("wrong: " +  wrongCount)
+      
     }
+
+    console.log(unanswered)
+
+
+    
+
 });
-Questions();
+
 
 
 
