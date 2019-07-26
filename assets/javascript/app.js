@@ -6,19 +6,17 @@ $(document).ready(function(){
     var questArray;
     var timerCountdwn;
     
-    
+    //------------------------------------------------
     
     
     //Setting Timer to 30 seconds   
     function timer(){
         timerCountdwn = setInterval(CountDown,1000)  
-        
-
     }
+
     function CountDown(){
         $("#Timer").html("Time Remaining: " + startTime + " seconds")
         startTime--;
-
         if(startTime === -1)
         {
             stopTime();
@@ -33,6 +31,15 @@ $(document).ready(function(){
         timerStop=false;
         clearInterval(timerCountdwn)
     }
+
+    // function timeOut() {
+    //     $("#choices").empty();
+    //     Questions();
+    //     CountDown();
+    //     timer();
+        
+    // }
+    // setTimeout(timeOut,5000);
       //-------------------------------------------------
 
        
@@ -87,22 +94,19 @@ $(document).ready(function(){
         $("#Timer").hide();
         
 
-        //WHEN START BUTTON IS CLICK PAGE LOADS
+        //WHEN START BUTTON IS CLICKED PAGE LOADS
         $("#begin").on("click", function(){
             $("#begin").hide();
             Questions();
             $("#Timer").show();
             timer();
-           
-
-
-        })
+           })
         
 //HAVE 'VAR INDEX' AS A RANDOM NUMBER
 //SO THE QUESTIONS WILL BE RANDOMIZED WHEN DISPLAYED ON THE SCREEN
 function Questions(){
-    var index = Math.floor(Math.random()*triviaQuest.length)
-    console.log("index " + index)
+    var index = Math.floor(Math.random()*triviaQuest.length);
+    console.log("index " + index);
 
 
 //'VAR questARRY' WILL TAKE IN THE OBJECTS IN THE ARRAY
@@ -149,49 +153,25 @@ function Questions(){
         guess="";
         Questions();
         stopTime();
+        // timeOut();
 
         console.log("----------------")
         console.log("correct: " + correctCount)
         console.log("wrong: " +  wrongCount)
-       
-
-    }
-    else 
-    {
+       }
+    else {
         wrongCount++;
         $("#choices").html("Wrong!")
         guess="";
         Questions();
         stopTime();
+        // timeOut();
 
         console.log("----------------")
         console.log("correct: " + correctCount)
         console.log("wrong: " +  wrongCount)
-      
     }
 
     console.log(unanswered)
-
-
-    
-
 });
-
-
-
-
-   
-      
-       
-
-
-
-        
-
-
-
-
-    
-    
-    
 });
