@@ -3,43 +3,39 @@ $(document).ready(function(){
     var correctCount=0;
     var wrongCount=0;
     var unanswered=0;
+    var index;
     var questArray;
     var timerCountdwn;
+    var pushArray = [];
+    
     
     //------------------------------------------------
     
     
     //Setting Timer to 30 seconds   
     function timer(){
-        timerCountdwn = setInterval(CountDown,1000)  
+        timerCountdwn = setInterval(CountDown,1000); 
     }
 
     function CountDown(){
-        $("#Timer").html("Time Remaining: " + startTime + " seconds")
+        $("#Timer").html("Time Remaining: " + startTime + " seconds");
         startTime--;
         if(startTime === -1)
         {
             stopTime();
             unanswered++;
-            $("#choices").html("Time's Up!!")
-            console.log("Unanswered: " + unanswered)
+            $("#choices").html("Time's Up!!");
+            console.log("Unanswered: " + unanswered);
+            
         }
     }
 
         //STOP TIME
     function stopTime(){
-        timerStop=false;
         clearInterval(timerCountdwn)
     }
 
-    // function timeOut() {
-    //     $("#choices").empty();
-    //     Questions();
-    //     CountDown();
-    //     timer();
-        
-    // }
-    // setTimeout(timeOut,5000);
+    
       //-------------------------------------------------
 
        
@@ -88,7 +84,8 @@ $(document).ready(function(){
             },
         ]
    //------------------------------------------------------------------------------------------------------------------------------------------
-
+   var questCount = triviaQuest.length;
+        
         //HIDE "PLAY AGAIN?" BUTTON
         $("#playAgain").hide();
         $("#Timer").hide();
@@ -105,7 +102,7 @@ $(document).ready(function(){
 //HAVE 'VAR INDEX' AS A RANDOM NUMBER
 //SO THE QUESTIONS WILL BE RANDOMIZED WHEN DISPLAYED ON THE SCREEN
 function Questions(){
-    var index = Math.floor(Math.random()*triviaQuest.length);
+    index = Math.floor(Math.random()*triviaQuest.length);
     console.log("index " + index);
 
 
@@ -139,33 +136,31 @@ function Questions(){
      var guess= "";
      guess +=  parseInt($(this).attr("data-pick"));
      
-     console.log("-----------------")
-    console.log(guess)
-    console.log(questArray.answer)
+    console.log("-----------------")
+    console.log("Your Guess: " + guess)
+    console.log("Correct Answer:" + questArray.answer)
   
     console.log("-----------------")
 
     // // IF STATEMENT TO DETERMINE IF THE ANSWER IS RIGHT OR WRONG
      if ( guess === questArray.answer) {
+         stopTime();
         correctCount++;
         $("#choices").html("<p>Correct!</p>")
         console.log(guess)
         guess="";
-        Questions();
-        stopTime();
-        // timeOut();
+        nextQuestion();
 
         console.log("----------------")
         console.log("correct: " + correctCount)
         console.log("wrong: " +  wrongCount)
        }
     else {
+        stopTime();
         wrongCount++;
         $("#choices").html("Wrong!")
         guess="";
-        Questions();
-        stopTime();
-        // timeOut();
+        nextQuestion();
 
         console.log("----------------")
         console.log("correct: " + correctCount)
@@ -173,5 +168,48 @@ function Questions(){
     }
 
     console.log(unanswered)
+
+    function nextQuestion(){
+        pushArray.push(questArray);
+        triviaQuest.splice(index,1);
+
+         var out = setTimeout(function(){
+            $("#choices").empty();
+            startTime = 30;
+
+            if ( correctCount + wrongCount + unanswered === questCount)
+            {
+                $("#questions").empty();
+                $("#questions").html("Game Over!");
+                $("#choices").append("<h2> Correct: " + correctCount + "</h2>");
+                $("#choices").append("<h2> Incorrect: " + wrongCount + "</h2>");
+                $("#choices").append("<h2> Unanswered: " + unanswered + "</h2>");
+                $("#playAgain").show();
+                correctCount=0;
+                wrongCount=0;
+                unanswered=0;
+            }
+            else{
+                timer();
+                Questions();
+            }
+        },2000)
+    }
+
+
+    $("#playAgain").on("click",function() {
+        $("#playAgain").hide();
+        $("#questions").empty();
+        $("#choices").empty();
+        for(let j=0;j<pushArray.length;j++)
+        {
+            triviaQuest.push(pushArray[j]);
+
+        }
+        stopTime();
+        timer();
+        Questions();
+    
+    })
 });
 });
