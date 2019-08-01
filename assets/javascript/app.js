@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var startTime=30;
+    var startTime=5;
     var correctCount=0;
     var wrongCount=0;
     var unanswered=0;
@@ -16,6 +16,38 @@ $(document).ready(function(){
     function timer(){
         timerCountdwn = setInterval(CountDown,1000); 
     }
+    
+    function nextQuestion(){
+        pushArray.push(questArray);
+        triviaQuest.splice(index,1);
+    
+         var out = setTimeout(function(){
+            $("#choices").empty();
+            startTime = 30;
+    
+            if ( correctCount + wrongCount + unanswered === questCount)
+            {
+                $("#questions").empty();
+                $("#questions").html("Game Over!");
+                $("#choices").append("<h2> Correct: " + correctCount + "</h2>");
+                $("#choices").append("<h2> Incorrect: " + wrongCount + "</h2>");
+                $("#choices").append("<h2> Unanswered: " + unanswered + "</h2>");
+                $("#playAgain").show();
+                correctCount=0;
+                wrongCount=0;
+                unanswered=0;
+            }
+            else{
+                timer();
+                Questions();
+            }
+        },2000)
+    }
+    
+    //STOP TIME
+function stopTime(){
+    clearInterval(timerCountdwn)
+}
 
     function CountDown(){
         $("#Timer").html("Time Remaining: " + startTime + " seconds");
@@ -26,14 +58,10 @@ $(document).ready(function(){
             unanswered++;
             $("#choices").html("Time's Up!!");
             console.log("Unanswered: " + unanswered);
-            
+            nextQuestion();
         }
     }
 
-        //STOP TIME
-    function stopTime(){
-        clearInterval(timerCountdwn)
-    }
 
     
       //-------------------------------------------------
@@ -169,34 +197,8 @@ function Questions(){
 
     console.log(unanswered)
 
-    function nextQuestion(){
-        pushArray.push(questArray);
-        triviaQuest.splice(index,1);
-
-         var out = setTimeout(function(){
-            $("#choices").empty();
-            startTime = 30;
-
-            if ( correctCount + wrongCount + unanswered === questCount)
-            {
-                $("#questions").empty();
-                $("#questions").html("Game Over!");
-                $("#choices").append("<h2> Correct: " + correctCount + "</h2>");
-                $("#choices").append("<h2> Incorrect: " + wrongCount + "</h2>");
-                $("#choices").append("<h2> Unanswered: " + unanswered + "</h2>");
-                $("#playAgain").show();
-                correctCount=0;
-                wrongCount=0;
-                unanswered=0;
-            }
-            else{
-                timer();
-                Questions();
-            }
-        },2000)
-    }
-
-
+    
+    
     $("#playAgain").on("click",function() {
         $("#playAgain").hide();
         $("#questions").empty();
@@ -204,12 +206,11 @@ function Questions(){
         for(let j=0;j<pushArray.length;j++)
         {
             triviaQuest.push(pushArray[j]);
-
         }
-        stopTime();
-        timer();
-        Questions();
-    
+       
+        // timer();
+        nextQuestion();
+        
     })
 });
 });
