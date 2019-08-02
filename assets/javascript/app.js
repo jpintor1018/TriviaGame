@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var startTime=5;
+    var startTime=30;
     var correctCount=0;
     var wrongCount=0;
     var unanswered=0;
@@ -195,22 +195,22 @@ function Questions(){
         console.log("wrong: " +  wrongCount)
     }
 
-    console.log(unanswered)
+    console.log("Unanswered: " + unanswered)
 
     
     
     $("#playAgain").on("click",function() {
-        $("#playAgain").hide();
-        $("#questions").empty();
-        $("#choices").empty();
-        for(let j=0;j<pushArray.length;j++)
-        {
-            triviaQuest.push(pushArray[j]);
-        }
-       
-        // timer();
-        nextQuestion();
-        
+    //     $("#playAgain").hide();
+    //     $("#questions").empty();
+    //     $("#choices").empty();
+    //     for(let j=0;j<pushArray.length;j++)
+    //     {
+    //         triviaQuest.push(pushArray[j]);
+    //     }
+    //    stopTime();
+    //     timer();
+    //     nextQuestion();
+         window.location.reload(true);
     })
 });
 });
